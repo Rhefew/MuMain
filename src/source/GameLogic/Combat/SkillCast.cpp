@@ -985,6 +985,12 @@ void AttackRagefighter(CHARACTER* pCha, int nSkill, float fDistance)
     }*/
 
     bool bSuccess = CheckTarget(pCha);
+    bool bIsBuff = (nSkill == AT_SKILL_ATT_UP_OURFORCES
+        || nSkill == AT_SKILL_HP_UP_OURFORCES
+        || nSkill == AT_SKILL_HP_UP_OURFORCES_STR
+        || nSkill == AT_SKILL_DEF_UP_OURFORCES
+        || nSkill == AT_SKILL_DEF_UP_OURFORCES_STR
+        || nSkill == AT_SKILL_DEF_UP_OURFORCES_MASTERY);
     bool bCheckAttack = CheckAttack();
     g_MovementSkill.m_bMagic = TRUE;
     g_MovementSkill.m_iSkill = Hero->CurrentSkill;
@@ -994,9 +1000,10 @@ void AttackRagefighter(CHARACTER* pCha, int nSkill, float fDistance)
     else
         g_MovementSkill.m_iTarget = -1;
 
-    g_ConsoleDebug->Write(MCD_SEND, L"AttackRagefighter ID : %d, Success : %d, SelectedCharacter: %d %d | 5d", nSkill, bSuccess, SelectedCharacter, CharactersClient[SelectedCharacter].Dead, bCheckAttack);
+    int iDead = (SelectedCharacter >= 0 && SelectedCharacter < MAX_CHARACTERS_CLIENT) ? CharactersClient[SelectedCharacter].Dead : -1;
+    g_ConsoleDebug->Write(MCD_SEND, L"AttackRagefighter ID : %d, Success : %d, SelectedCharacter: %d %d | 5d", nSkill, bSuccess, SelectedCharacter, iDead, bCheckAttack);
 
-    if (bSuccess)
+    if (bSuccess || bIsBuff)
     {
         switch (nSkill)
         {

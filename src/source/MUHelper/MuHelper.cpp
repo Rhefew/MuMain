@@ -531,6 +531,18 @@ namespace MUHelper
         case AT_SKILL_ALICE_THORNS:
             return CastIfMissing(g_isCharacterBuff(obj, eBuff_Thorns), false, false);
 
+        case AT_SKILL_ATT_UP_OURFORCES:
+            return CastIfMissing(g_isCharacterBuff(obj, eBuff_Att_up_Ourforces), false, false);
+
+        case AT_SKILL_HP_UP_OURFORCES:
+        case AT_SKILL_HP_UP_OURFORCES_STR:
+            return CastIfMissing(g_isCharacterBuff(obj, eBuff_Hp_up_Ourforces), true, false);
+
+        case AT_SKILL_DEF_UP_OURFORCES:
+        case AT_SKILL_DEF_UP_OURFORCES_STR:
+        case AT_SKILL_DEF_UP_OURFORCES_MASTERY:
+            return CastIfMissing(g_isCharacterBuff(obj, eBuff_Def_up_Ourforces), true, false);
+
         default:
             return 1;
         }
